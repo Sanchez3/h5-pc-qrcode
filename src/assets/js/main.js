@@ -5,9 +5,8 @@
 
 
 import css from '../css/css.css';
-// import QRCode from 'qrcodejs2';
 var QRCode = require('qrcodejs2');
-
+// import QRCode from 'qrcodejs2';
 window.h5 = {
     isPc: function() {
         var userAgentInfo = navigator.userAgent;
@@ -97,7 +96,9 @@ window.h5 = {
     init: function() {
         var that = this;
         that.cssInit().eventInit();
-        that.initQRCode();
+        if(that.isPc()){
+            that.initQRCode();
+        }
 
     }
 };
