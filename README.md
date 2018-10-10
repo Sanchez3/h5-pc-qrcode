@@ -20,9 +20,9 @@
 
 ## Usage
 
-### import / require 
+### import or require 
 
-with webpack / with requirejs/AMD
+with webpack or with requirejs/AMD
 
 ```html
 <div id="qrcode"></div>
