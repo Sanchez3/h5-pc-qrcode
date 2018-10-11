@@ -18,14 +18,42 @@ window.h5 = {
         return flag;
     },
     initQRCode: function() {
-        var qrcode = new QRCode(document.getElementById('qrcode'), {
+        var bgWidth = 1920;
+        var bgHeight = 1080;
+        var wWidth = (window.screen.width > 0) ? (window.innerWidth >= window.screen.width || window.innerWidth == 0) ? screen.width :
+            window.innerWidth : window.innerWidth;
+        var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
+            window.screen.height : window.innerHeight : window.innerHeight;
+        var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
+        console.log(wWidth, wHeight, scale);
+        var qrWidth = 200 / scale;
+        var qrcodeElement = document.getElementById('qrcode');
+        var qrcode = new QRCode(qrcodeElement, {
             text: "QRCode",
-            width: 128,
-            height: 128,
+            width: qrWidth,
+            height: qrWidth,
             colorDark: "#000000",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.H
         });
+        qrcodeElement.style.top = (wHeight - bgHeight / scale) / 2 + 334 / scale + 'px';
+        qrcodeElement.style.left = (wWidth - bgWidth / scale) / 2 + 990 / scale + 'px';
+        window.addEventListener('resize', function() {
+            var wWidth = (window.screen.width > 0) ? (window.innerWidth >= window.screen.width || window.innerWidth == 0) ? screen.width :
+                window.innerWidth : window.innerWidth;
+            var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
+                window.screen.height : window.innerHeight : window.innerHeight;
+            var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
+            // qrcodeElement.st = "scale("+200scale+")";
+            qrcodeElement.style.top = (wHeight - bgHeight / scale) / 2 + 334 / scale + 'px';
+            qrcodeElement.style.left = (wWidth - bgWidth / scale) / 2 + 990 / scale + 'px';
+        })
+        // Y 334px X 990px
+        // qr 200px * 200px
+
+
+
+
     },
     rootResize: function() {
         //orientation portrait width=750px height=1334px / WeChat width=750px height=1206px 
@@ -96,7 +124,7 @@ window.h5 = {
     init: function() {
         var that = this;
         that.cssInit().eventInit();
-        if(that.isPc()){
+        if (that.isPc()) {
             that.initQRCode();
         }
 
