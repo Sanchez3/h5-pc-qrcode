@@ -31,10 +31,11 @@ window.h5 = {
         // qrcode X:990px Y:334px W:200px H:200px
         var qrWidth = 200 / scale;
         var qrHeight = 200 / scale;
-        var qrUrl=
+        var qrUrl=window.location.href;
+       
         var qrcodeElement = document.getElementById('qrcode');
         var qrcode = new QRCode(qrcodeElement, {
-            text: "QRCode",
+            text: qrUrl,
             width: qrWidth,
             height: qrHeight,
             colorDark: "#000000",
