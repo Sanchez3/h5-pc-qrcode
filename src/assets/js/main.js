@@ -18,20 +18,25 @@ window.h5 = {
         return flag;
     },
     initQRCode: function() {
+        // bg W:1920px H:1080px
         var bgWidth = 1920;
         var bgHeight = 1080;
+
         var wWidth = (window.screen.width > 0) ? (window.innerWidth >= window.screen.width || window.innerWidth == 0) ? screen.width :
             window.innerWidth : window.innerWidth;
         var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
             window.screen.height : window.innerHeight : window.innerHeight;
         var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
-        console.log(wWidth, wHeight, scale);
+
+        // qrcode X:990px Y:334px W:200px H:200px
         var qrWidth = 200 / scale;
+        var qrHeight = 200 / scale;
+        var qrUrl=
         var qrcodeElement = document.getElementById('qrcode');
         var qrcode = new QRCode(qrcodeElement, {
             text: "QRCode",
             width: qrWidth,
-            height: qrWidth,
+            height: qrHeight,
             colorDark: "#000000",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.H
@@ -43,13 +48,12 @@ window.h5 = {
                 window.innerWidth : window.innerWidth;
             var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
                 window.screen.height : window.innerHeight : window.innerHeight;
-            var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
-            // qrcodeElement.st = "scale("+200scale+")";
-            qrcodeElement.style.top = (wHeight - bgHeight / scale) / 2 + 334 / scale + 'px';
-            qrcodeElement.style.left = (wWidth - bgWidth / scale) / 2 + 990 / scale + 'px';
+            var _scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
+            qrcodeElement.style.transform = `scale(${scale/_scale})`;
+            qrcodeElement.style.top = (wHeight - bgHeight / _scale) / 2 + 334 / _scale + 'px';
+            qrcodeElement.style.left = (wWidth - bgWidth / _scale) / 2 + 990 / _scale + 'px';
         })
-        // Y 334px X 990px
-        // qr 200px * 200px
+
 
 
 
