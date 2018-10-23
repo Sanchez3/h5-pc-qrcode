@@ -44,6 +44,8 @@ with webpack or with requirejs/AMD
 
 ## Refenerce
 
+- [H5游戏开发：横屏适配](https://aotu.io/notes/2017/10/18/landscape_mode_in_html5_game/index.html)
+
 - [css3 background 新添属性让你的背景图不再拉伸而是随窗口变化而变化](http://yijiebuyi.com/blog/260c099f3462623f6c1e4425e3bd8664.html)
 
 
