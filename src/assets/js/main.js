@@ -17,22 +17,10 @@ window.h5 = {
         }
         return flag;
     },
-    initQRCode: function() {
-        // bg W:1920px H:1080px
-        var bgWidth = 1920;
-        var bgHeight = 1080;
-
-        var wWidth = (window.screen.width > 0) ? (window.innerWidth >= window.screen.width || window.innerWidth == 0) ? screen.width :
-            window.innerWidth : window.innerWidth;
-        var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
-            window.screen.height : window.innerHeight : window.innerHeight;
-        var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
-
-        // qrcode X:990px Y:334px W:200px H:200px
-        var qrWidth = 200 / scale;
-        var qrHeight = 200 / scale;
-        var qrUrl=window.location.href;
-       
+    initQrCode: function() {
+        var qrWidth = 200;
+        var qrHeight = 200;
+        var qrUrl = window.location.href;
         var qrcodeElement = document.getElementById('qrcode');
         var qrcode = new QRCode(qrcodeElement, {
             text: qrUrl,
@@ -42,25 +30,25 @@ window.h5 = {
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.H
         });
-        qrcodeElement.style.top = (wHeight - bgHeight / scale) / 2 + 334 / scale + 'px';
-        qrcodeElement.style.left = (wWidth - bgWidth / scale) / 2 + 990 / scale + 'px';
-        window.addEventListener('resize', function() {
-            var wWidth = (window.screen.width > 0) ? (window.innerWidth >= window.screen.width || window.innerWidth == 0) ? screen.width :
-                window.innerWidth : window.innerWidth;
-            var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
-                window.screen.height : window.innerHeight : window.innerHeight;
-            var _scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
-            qrcodeElement.style.transform = `scale(${scale/_scale})`;
-            qrcodeElement.style.top = (wHeight - bgHeight / _scale) / 2 + 334 / _scale + 'px';
-            qrcodeElement.style.left = (wWidth - bgWidth / _scale) / 2 + 990 / _scale + 'px';
-        })
+
+    },
+    setElementPosition: function(el, x, y, w, h, bgWidth, bgHeight) {
+        var wWidth = window.innerWidth
+        var wHeight = window.innerHeight
+        // alert(window.innerWidth+' '+window.innerHeight)
+
+        var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
+        el.style.top = (wHeight - bgHeight / scale) / 2 + x / scale + 'px';
+        el.style.left = (wWidth - bgWidth / scale) / 2 + y / scale + 'px';
 
 
+        el.style.transform = `scale(${1/scale})`;
 
 
 
     },
     rootResize: function() {
+        var that = this;
         //orientation portrait width=750px height=1334px / WeChat width=750px height=1206px 
         var wFsize;
 
@@ -76,6 +64,11 @@ window.h5 = {
             wFsize = wWidth / 750 * 100;
         }
         document.getElementsByTagName('html')[0].style.fontSize = wFsize + 'px';
+
+        //when background-size:contain object-fit:contain, how to locate the element
+        //eg. bg W:1920px H:1080px   
+        //element: qrcode X:990px Y:334px W:200px H:200px
+        that.setElementPosition(document.getElementById('qrcode'), 334, 990, 200, 200, 1920, 1080);
     },
     eventInit: function() {
         var that = this;
@@ -90,6 +83,7 @@ window.h5 = {
         var noChangeCountToEnd = 100,
             noEndTimeout = 1000;
         that.rootResize();
+        that.initQrCode();
         window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', function() {
             var interval,
                 timeout,
@@ -110,6 +104,7 @@ window.h5 = {
                     noChangeCount++;
                     if (noChangeCount === noChangeCountToEnd) {
                         // The interval resolved the issue first.
+
                         end();
                     }
                 } else {
@@ -129,9 +124,6 @@ window.h5 = {
     init: function() {
         var that = this;
         that.cssInit().eventInit();
-        if (that.isPc()) {
-            that.initQRCode();
-        }
 
     }
 };
