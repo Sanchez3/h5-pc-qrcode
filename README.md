@@ -6,6 +6,10 @@
 
 利用 [qrcode.js](https://github.com/davidshimjs/qrcodejs/) 生成二维码。
 
+**同理适用于 父元素背景图片保留固有比例，最大的包含背景区（ `background-size: contain;background-position: center` 或 `object-size:contain;object-position: center`）， 而子元素位置及尺寸的改变。**
+
+关键点：[获取屏幕宽高width(),outerWidth,innerWidth,clientWidth的区别](https://segmentfault.com/a/1190000010746091)、[document.documentElement.clientWidth vs window.innerWidth](https://github.com/ten1seven/jRespond/issues/1#issuecomment-11074991)
+
 ## Installation
 
 1. Install Node.js First
