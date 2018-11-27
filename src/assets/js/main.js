@@ -33,13 +33,13 @@ window.h5 = {
 
     },
     setElementPosition: function(el, x, y, w, h, bgWidth, bgHeight) {
-        var wWidth = window.innerWidth
-        var wHeight = window.innerHeight
-        // alert(window.innerWidth+' '+window.innerHeight)
+        var wWidth = document.documentElement.clientWidth || window.innerWidth;
+        var wHeight = document.documentElement.clientHeight || window.innerHeight;
 
         var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
-        el.style.top = (wHeight - bgHeight / scale) / 2 + x / scale + 'px';
-        el.style.left = (wWidth - bgWidth / scale) / 2 + y / scale + 'px';
+        el.style.left = (wWidth - bgWidth / scale) / 2 + x / scale + 'px';
+        el.style.top = (wHeight - bgHeight / scale) / 2 + y / scale + 'px';
+
 
 
         el.style.transform = `scale(${1/scale})`;
@@ -52,12 +52,9 @@ window.h5 = {
         //orientation portrait width=750px height=1334px / WeChat width=750px height=1206px 
         var wFsize;
 
-        var wWidth = (window.screen.width > 0) ? (window.innerWidth >= window.screen.width || window.innerWidth == 0) ? screen.width :
-            window.innerWidth : window.innerWidth;
-        var wHeight = (window.screen.height > 0) ? (window.innerHeight >= window.screen.height || window.innerHeight == 0) ?
-            window.screen.height : window.innerHeight : window.innerHeight;
-        // var wWidth = window.innerWidth;
-        // var wHeight = window.innerHeight;
+        var wWidth = document.documentElement.clientWidth || window.innerWidth;
+        var wHeight = document.documentElement.clientHeight || window.innerHeight;
+
         if (wWidth > wHeight) {
             wFsize = wHeight / 750 * 100;
         } else {
@@ -68,7 +65,7 @@ window.h5 = {
         //when background-size:contain object-fit:contain, how to locate the element
         //eg. bg W:1920px H:1080px   
         //element: qrcode X:990px Y:334px W:200px H:200px
-        that.setElementPosition(document.getElementById('qrcode'), 334, 990, 200, 200, 1920, 1080);
+        that.setElementPosition(document.getElementById('qrcode'), 990, 334, 200, 200, 1920, 1080);
     },
     eventInit: function() {
         var that = this;
