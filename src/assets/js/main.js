@@ -39,13 +39,7 @@ window.h5 = {
         var scale = (bgWidth / wWidth > bgHeight / wHeight) ? bgWidth / wWidth : bgHeight / wHeight;
         el.style.left = (wWidth - bgWidth / scale) / 2 + x / scale + 'px';
         el.style.top = (wHeight - bgHeight / scale) / 2 + y / scale + 'px';
-
-
-
         el.style.transform = `scale(${1/scale})`;
-
-
-
     },
     rootResize: function() {
         var that = this;
