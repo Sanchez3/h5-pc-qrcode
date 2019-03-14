@@ -59,8 +59,7 @@ module.exports = {
                 options: {
                     limit: 1024,
                     name: '[name].[ext]',
-                    publicPath: '../../',
-                    outputPath: 'assets/css/'
+                    outputPath: '../img/'
                 }
             }
         }, {
@@ -70,8 +69,7 @@ module.exports = {
                 options: {
                     limit: 1024,
                     name: '[name].[ext]',
-                    publicPath: '../../',
-                    outputPath: 'assets/css/'
+                    outputPath: '../css/'
                 }
             }
         }, {
