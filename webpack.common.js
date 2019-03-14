@@ -58,8 +58,10 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 1024,
-                    name: '[name].[ext]',
-                    outputPath: '../img/'
+                    name: 'assets/img/[name].[ext]',
+                    publicPath: function(url) {
+                        return url.replace(/assets/, '..')
+                    }
                 }
             }
         }, {
@@ -68,8 +70,10 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 1024,
-                    name: '[name].[ext]',
-                    outputPath: '../css/'
+                    name: 'assets/fonts/[name].[ext]',
+                    publicPath: function(url) {
+                        return url.replace(/assets/, '..')
+                    }
                 }
             }
         }, {
@@ -85,18 +89,7 @@ module.exports = {
         }]
     },
     plugins: [
-        //清空dist
         new HashedModuleIdsPlugin(),
-        new CleanWebpackPlugin(["dist"], {
-            root: '',
-            verbose: true,
-            dry: false
-        }),
-        new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, "src/assets/img"),
-            to: path.resolve(__dirname, "dist/assets/img")
-
-        }]),
         new MiniCssExtractPlugin({
             filename: 'assets/css/[name].[chunkhash].min.css',
             chunkFilename: 'assets/css/[name].[chunkhash].css'
